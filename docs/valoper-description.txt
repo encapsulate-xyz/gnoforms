@@ -1,0 +1,24 @@
+Encapsulate is a professional validator operator.
+
+NETWORKS AND AuM
+We validate on roughly 50 networks, including Solana, Celestia, Sui, NEAR, Cosmos Hub, Ethereum, Avalanche, Stellar, Starknet, Namada, Monad, Aztec, IOTA and Mina. Total AuM: <FILL IN>.
+
+DIGITAL PRESENCE
+Website: https://encapsulate.xyz
+GitHub: https://github.com/encapsulate-xyz
+Discord: <FILL IN — required to join the valoper channel>
+X: <FILL IN>
+
+CONTACT
+<FILL IN>
+
+WHY GNO.LAND
+Proof of Contribution is the only validator selection model we have seen where the way in is building rather than bidding, and equal voting power means the set is judged on merit rather than stake. We also want to write Gno: it is the first smart contract language where our Go experience transfers directly, and realms publishing readable source is the property we most want in infrastructure we depend on.
+
+CONTRIBUTIONS
+- gno forms, a realm that publishes forms and collects responses on chain with gnoweb as the only UI, so structured input no longer needs a Web2 backend. Live at /r/nym-encapsulate001/forms — source at https://github.com/encapsulate-xyz/gnoforms
+- gnolang/gno#6140 — found and reported that an unticked checkbox in a gno-form submits its value regardless, making every boolean parameter unconditionally true. Filed with an on-chain reproduction, the served HTML, and a verified workaround.
+- gnolang/gno#6141 — gno-select has no way to set its visible label, so users see parameter names where a question should be.
+- gnoland-ansible, public deployment automation for gno.land nodes: https://github.com/encapsulate-xyz/gnoland-ansible
+
+Both issues were found by building on the form layer rather than reading the code. We are continuing on gno forms and intend to keep contributing to gnoweb and the examples.
