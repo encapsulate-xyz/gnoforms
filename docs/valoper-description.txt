@@ -18,9 +18,8 @@ Proof of Contribution rewards building rather than bidding, and equal voting pow
 **Contributions**
 
 * **gno forms** — a realm that publishes forms and collects responses on chain, with gnoweb as the only UI, so collecting structured input no longer needs a Web2 backend. Live at [/r/nym-encapsulate001/forms](/r/nym-encapsulate001/forms) · [source](https://github.com/encapsulate-xyz/gnoforms)
-* **[gnolang/gno#6140](https://github.com/gnolang/gno/issues/6140)** — an unticked checkbox in a `gno-form` submits its value regardless, making every boolean parameter unconditionally true. Filed with an on-chain reproduction and a verified workaround.
-* **[gnolang/gno#6141](https://github.com/gnolang/gno/issues/6141)** — `gno-select` has no way to set its visible label.
+* **[gnolang/gno#6140](https://github.com/gnolang/gno/issues/6140)** — an unticked checkbox in a `gno-form` submits its value regardless, making every boolean parameter unconditionally true. Filed with an on-chain reproduction and a workaround.
+* **[gnolang/gno#6141](https://github.com/gnolang/gno/issues/6141)** — `gno-select` cannot set its visible label.
 * **[gnoland-ansible](https://github.com/encapsulate-xyz/gnoland-ansible)** — deploys, upgrades, snapshot-syncs and monitors gno.land nodes with Vault-secured keys.
-* Validated on previous gno.land testnets.
 
-**Planned:** public endpoints and snapshots, monitoring, and continued work on gno forms and the gnoweb form layer.
+**Planned for gno forms:** more field types (email, checkbox, radio), per-form response numbering, and sealed responses if anyone wants them. Alongside: public endpoints, snapshots and monitoring for gno.land.
