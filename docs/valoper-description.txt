@@ -1,4 +1,4 @@
-Backed by five years of operating experience, Encapsulate secures 28 networks and $69,607,330 in delegated stake, delivering high uptime, rigorous key management, and open-source tooling for the wider validator community.
+Backed by five years of operating experience, Encapsulate secures 28 networks and $70M+ in delegated stake, delivering high uptime, rigorous key management, and open-source tooling for the wider validator community.
 
 **Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet, IOTA, Terra, Supra, Avail and 14 others — [full list](https://encapsulate.xyz)
 
