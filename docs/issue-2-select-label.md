@@ -31,4 +31,5 @@ Either accept a `placeholder` (or `label`) attribute on `gno-select`, or fall ba
 `description` before the name-derived label when one is present. `p/jeronimoalbi/mdform`
 mirrors gnoweb's allowed attributes, so it would follow automatically.
 
-Found on pearl-1; `ext_forms.go:735` is unchanged on master.
+Found on pearl-1 while building the same realm as #6140; `ext_forms.go:735` is unchanged
+on master.
