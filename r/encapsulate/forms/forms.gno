@@ -97,7 +97,9 @@ func CreateForm(cur realm,
 		boolFlag(onePerAddr) == "1", dl)
 }
 
-// boolFlag normalises what a checkbox or a human might send to "1" or "0".
+// boolFlag normalises a yes/no select value (or anything a human or gnokey
+// might send) to the "1"/"0" the field-spec parser expects. Anything that is
+// not affirmative is false, so an untouched control means "no".
 func boolFlag(s string) string {
 	switch strings.ToLower(strings.TrimSpace(s)) {
 	case "1", "true", "on", "yes":

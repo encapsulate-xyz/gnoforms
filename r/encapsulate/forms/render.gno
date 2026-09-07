@@ -282,14 +282,19 @@ func renderCreateHelp() string {
 		form.Select("k"+n, string(KindTextarea))
 		form.Select("k"+n, string(KindNumber))
 		form.Select("k"+n, string(KindSelect))
-		form.Checkbox("r"+n, "1", "description", "Field "+n+" required")
+		// A two-option select, not a checkbox: gnoweb sends an untouched
+		// checkbox's value attribute as if it were ticked, so every field came
+		// out required. Untouched selects correctly send their default.
+		form.Select("r"+n, "no", "description", "Field "+n+" required?", "selected", "true")
+		form.Select("r"+n, "yes")
 		form.Input("o"+n,
 			"placeholder", "Options, comma-separated (select fields only)",
 			"description", "Field "+n+" options",
 		)
 	}
 
-	form.Checkbox("onePerAddr", "1", "description", "One response per address")
+	form.Select("onePerAddr", "no", "description", "One response per address?", "selected", "true")
+	form.Select("onePerAddr", "yes")
 	form.Input("deadline",
 		"type", "number",
 		"placeholder", "0",

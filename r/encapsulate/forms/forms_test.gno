@@ -256,3 +256,23 @@ func TestCreateFormRejects(cur realm, t *testing.T) {
 			blank[24], blank[25], blank[26], blank[27], "", "")
 	})
 }
+
+// The create form's yes/no selects must round-trip through boolFlag.
+func TestRequiredFlagFromSelectValues(cur realm, t *testing.T) {
+	testing.SetRealm(testing.NewUserRealm(alice))
+	blank := [24]string{}
+
+	id := CreateForm(cross(cur), uniqueSlug("yesno"), "Yes/no", "",
+		"Kept optional", "text", "no", "",
+		"Made required", "text", "yes", "",
+		blank[0], blank[1], blank[2], blank[3], blank[4], blank[5], blank[6], blank[7],
+		blank[8], blank[9], blank[10], blank[11], blank[12], blank[13], blank[14], blank[15],
+		blank[16], blank[17], blank[18], blank[19], blank[20], blank[21], blank[22], blank[23],
+		"no", "")
+
+	f, _ := GetForm(id)
+	uassert.Equal(t, 2, len(f.Fields))
+	uassert.False(t, f.Fields[0].Required, `"no" must not be required`)
+	uassert.True(t, f.Fields[1].Required, `"yes" must be required`)
+	uassert.False(t, f.OnePerAddr, `"no" must not set one-per-address`)
+}
