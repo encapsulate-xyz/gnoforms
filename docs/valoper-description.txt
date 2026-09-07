@@ -1,6 +1,6 @@
-Encapsulate has run validator infrastructure since 2020, securing $69,607,330 in delegated stake across 40 networks.
+Encapsulate has run validator infrastructure since 2020, securing $69,607,330 in delegated stake across 28 networks.
 
-**Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet, IOTA, Terra, Supra, Avail and 25+ others — [full list](https://encapsulate.xyz)
+**Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet, IOTA, Terra, Supra, Avail and 14 others — [full list](https://encapsulate.xyz)
 
 **Digital presence**
 * Website: https://encapsulate.xyz
