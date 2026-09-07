@@ -1,6 +1,6 @@
-Backed by five years of operating experience, Encapsulate secures 28 networks and $70M+ in delegated stake, delivering high uptime, rigorous key management, and open-source tooling for the wider validator community.
+Backed by five years of operating experience, Encapsulate secures 28 networks and $70M+ in delegated stake, delivering high uptime, rigorous key management, and open-source tooling for the validator community.
 
-**Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet, IOTA, Terra, Supra, Avail and 14 others — [full list](https://encapsulate.xyz)
+**Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet, IOTA, Terra and 16 others — [full list](https://encapsulate.xyz)
 
 **Digital presence**
 * Website: https://encapsulate.xyz
@@ -9,7 +9,9 @@ Backed by five years of operating experience, Encapsulate secures 28 networks an
 * LinkedIn: https://www.linkedin.com/company/encapsulate-xyz
 * Discord: `aditya_encapsulate`, `kowshikvajrala`
 
-**Contact:** team@encapsulate.xyz · Telegram `aditya_encapsulate`
+**Contact**
+* Email: team@encapsulate.xyz
+* Telegram: `aditya_encapsulate`
 
 **Why we want to validate on gno.land**
 
