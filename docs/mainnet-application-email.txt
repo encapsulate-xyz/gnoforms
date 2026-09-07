@@ -1,0 +1,33 @@
+To:      carolyn@newtendermint.org
+Subject: Mainnet validator application — Encapsulate
+
+Hi Carolyn,
+
+Following the mainnet validator onboarding instructions posted in Discord, I'd like to
+register Encapsulate's interest in joining as a mainnet validator on gno.land.
+
+Encapsulate has run validator infrastructure since 2020, currently across 28 networks with
+$70M+ in delegated stake, operated from Bangalore, India. We are registered as a valoper on
+pearl-1 and have been contributing to gno.land beyond running nodes:
+
+• gno forms — a realm that publishes a form and collects responses on chain, with gnoweb as
+  the only UI: https://pearl.testnets.gno.land/r/nym-encapsulate001/forms
+  (source: https://github.com/encapsulate-xyz/gnoforms)
+
+• gnolang/gno#6140 and #6141 — two gnoweb form-layer bugs we found and reported while
+  building it, filed with on-chain reproductions:
+  https://github.com/gnolang/gno/issues/6140
+  https://github.com/gnolang/gno/issues/6141
+
+• gnoland-ansible — public deployment automation for gno.land nodes:
+  https://github.com/encapsulate-xyz/gnoland-ansible
+
+Valoper profile: https://pearl.testnets.gno.land/r/gnops/valopers:g1eyr3hfdcup4rr5xlcd63vc5t64a03u9kecx2v0
+Website:         https://encapsulate.xyz
+
+Could you send the official KYC form and let us know what's required for the Namescan
+screening? Happy to provide anything else useful at this stage.
+
+Thanks,
+Aditya Verma
+Founder, Encapsulate
