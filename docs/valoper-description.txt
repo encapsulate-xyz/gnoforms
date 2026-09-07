@@ -6,9 +6,10 @@ AuM: $69,607,330
 
 Website: https://encapsulate.xyz
 GitHub: https://github.com/encapsulate-xyz
-X: <FILL IN>
-Discord handle: <FILL IN>
-Contact: <FILL IN>
+X: https://x.com/encapHQ
+LinkedIn: https://www.linkedin.com/company/encapsulate-xyz
+Discord handles: aditya_encapsulate, kowshikvajrala
+Contact: team@encapsulate.xyz, Telegram @aditya_encapsulate
 
 Why we want to validate on gno.land: Proof of Contribution is the only validator selection model we have seen where the way in is building rather than bidding, and equal voting power means the set is judged on merit rather than stake. We also want to write Gno — it is the first contract language where our Go experience transfers directly, and realms publishing readable source is the property we most want in infrastructure we depend on.
 
