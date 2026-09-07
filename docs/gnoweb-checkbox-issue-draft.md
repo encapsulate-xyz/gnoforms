@@ -103,3 +103,18 @@ their `selected` option correctly.
 - `pearl-1`, gnoweb as served at `pearl.testnets.gno.land`
 - realm built against `chain/pearl` (`c4c72fdd288c`)
 - wallet: Adena
+
+---
+
+## Possible second issue, unrelated defect class
+
+`gno-select` has no way to set its visible label. `ext_forms.go:735` derives it from the
+parameter name — `titleCase(strings.ReplaceAll(e.Name, "_", " "))` — and `mdform`'s
+`selectAttributes` (`description`, `readonly`, `required`, `selected`) has no
+`placeholder`, so a realm cannot override it. A form whose parameters are necessarily
+positional (`a1`, `a2`, …, because gnoweb maps inputs to a fixed function signature) shows
+users "Select an A3 (required)". Inputs and textareas avoid this only because they render
+their `placeholder`.
+
+Suggestion: accept `placeholder` on `gno-select`, or fall back to `description` when
+present, before the name-derived label.
