@@ -1,4 +1,4 @@
-Encapsulate has run validator infrastructure since 2020, securing $69,607,330 in delegated stake across 28 networks.
+Backed by five years of operating experience, Encapsulate secures 28 networks and $69,607,330 in delegated stake, delivering high uptime, rigorous key management, and open-source tooling for the wider validator community.
 
 **Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet, IOTA, Terra, Supra, Avail and 14 others — [full list](https://encapsulate.xyz)
 
@@ -13,7 +13,7 @@ Encapsulate has run validator infrastructure since 2020, securing $69,607,330 in
 
 **Why we want to validate on gno.land**
 
-Proof of Contribution rewards building rather than bidding, and equal voting power means the set is judged on merit rather than stake. Gno plays to our strengths: years of Go and Cosmos-SDK operations transfer directly, and readable on-chain source is what we most want in infrastructure we depend on.
+Proof of Contribution rewards building rather than bidding, and equal voting power means the set is judged on merit rather than stake. Gno also plays to our strengths: years of Go and Cosmos-SDK operations transfer directly.
 
 **Contributions**
 
@@ -23,4 +23,4 @@ Proof of Contribution rewards building rather than bidding, and equal voting pow
 * **[gnoland-ansible](https://github.com/encapsulate-xyz/gnoland-ansible)** — deploys, upgrades, snapshot-syncs and monitors gno.land nodes with Vault-secured keys.
 * Validated on previous gno.land testnets.
 
-**Planned:** monitoring and analytics, public endpoints and snapshots, and continued work on gno forms and the gnoweb form layer.
+**Planned:** public endpoints and snapshots, monitoring, and continued work on gno forms and the gnoweb form layer.
