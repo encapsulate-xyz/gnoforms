@@ -1,6 +1,6 @@
 Backed by five years of operating experience, Encapsulate secures 28 networks and $70M+ in delegated stake, delivering high uptime, rigorous key management, and open-source tooling for the validator community.
 
-**Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet, IOTA, Terra and 16 others — [full list](https://encapsulate.xyz)
+**Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet and 18 others — [full list](https://encapsulate.xyz)
 
 **Digital presence**
 * Website: https://encapsulate.xyz
@@ -15,7 +15,7 @@ Backed by five years of operating experience, Encapsulate secures 28 networks an
 
 **Why we want to validate on gno.land**
 
-Proof of Contribution rewards building rather than bidding, and equal voting power means the set is judged on merit rather than stake. Gno also plays to our strengths: years of Go and Cosmos-SDK operations transfer directly.
+On most chains we validate, the way in is capital. Here it is building, and every validator has the same vote — that is a set worth joining. Gno suits us too: we have run Go and Cosmos-SDK infrastructure for years, so the language is already familiar.
 
 **Contributions**
 
