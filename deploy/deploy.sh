@@ -24,12 +24,15 @@ NAME="$(basename "$PKGPATH")"
 for f in "$SRC"/*.gno; do case "$f" in *_test.gno) ;; *) sed -e "s/^package forms\$/package $NAME/" -e "s|^// Package forms |// Package $NAME |" "$f" > "$STAGE/$(basename "$f")";; esac; done
 printf 'module = "%s"\ngno = "0.9"\n' "$PKGPATH" > "$STAGE/gnomod.toml"
 echo "staged $(ls "$STAGE" | wc -l | tr -d ' ') files for $PKGPATH in $STAGE"
+GW=60000000
+FEE=$("$(dirname "$0")/gasfee.sh" "$GW" "$REMOTE" | sed -E 's/.*-gas-fee ([0-9]+ugnot).*/\1/')
+echo "using -gas-wanted $GW -gas-fee $FEE (from auth/gasprice)"
 echo "--- simulate ---"
 "$GNOKEY" maketx addpkg -pkgpath "$PKGPATH" -pkgdir "$STAGE" \
-  -gas-fee 1000000ugnot -gas-wanted 60000000 -max-deposit 20000000ugnot \
+  -gas-fee "$FEE" -gas-wanted "$GW" -max-deposit 20000000ugnot \
   -chainid "$CHAIN" -remote "$REMOTE" -broadcast -simulate only "$KEY"
 echo "--- broadcast ---"
 "$GNOKEY" maketx addpkg -pkgpath "$PKGPATH" -pkgdir "$STAGE" \
-  -gas-fee 1000000ugnot -gas-wanted 60000000 -max-deposit 20000000ugnot \
+  -gas-fee "$FEE" -gas-wanted "$GW" -max-deposit 20000000ugnot \
   -chainid "$CHAIN" -remote "$REMOTE" -broadcast "$KEY"
 echo "deployed: https://${REMOTE#https://rpc.}" | sed 's/:443//'
