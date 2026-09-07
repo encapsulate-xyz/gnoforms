@@ -36,6 +36,21 @@ Field kinds: `text`, `textarea`, `number`, `select` (options comma-separated in
 the fourth argument). Up to 8 fields. `true` as the seventh argument limits each
 address to one response; the eighth is an optional closing chain height.
 
+## Deploy
+
+```sh
+# throwaway on Pearl first — no namespace registration needed there
+deploy/deploy.sh <key> gno.land/r/encapsulate/test
+
+# the real path, once the browser flow has been tested
+deploy/deploy.sh <key> gno.land/r/encapsulate/forms
+```
+
+The script stages the realm source (no tests) under the given path, runs a
+`-simulate only` pass to size gas and the storage deposit, then broadcasts.
+Deployed realms are immutable — a fix is a new path (`forms/v2`), which is why
+the throwaway comes first.
+
 ## What's deliberately not here
 
 - **Private responses.** Everything on chain is public. Sealing answers needs
