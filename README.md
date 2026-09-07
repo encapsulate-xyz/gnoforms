@@ -65,6 +65,14 @@ Deploying this realm costs ~55M gas and a ~6.8 GNOT storage deposit on Pearl.
 Deployed realms are immutable — a fix is a new path (`forms/v2`), which is why
 the throwaway comes first.
 
+## Known limitations (v1)
+
+- **Create forms from the terminal.** The index's "Create a form" link hands an empty
+  transaction straight to the wallet, and the wallet's simulation rejects it before the
+  realm can explain why. A browser form for `Create` is the next change.
+- Adena shows a storage deposit of 0 GNOT when its simulation fails — that's the failed
+  simulation, not a free transaction.
+
 ## What's deliberately not here
 
 - **Private responses.** Everything on chain is public. Sealing answers needs
