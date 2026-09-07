@@ -53,4 +53,5 @@ echo "--- broadcast: gas used $USED -> -gas-wanted $GW -gas-fee $FEE ---"
 "$GNOKEY" maketx addpkg -pkgpath "$PKGPATH" -pkgdir "$STAGE" \
   -gas-fee "$FEE" -gas-wanted "$GW" -max-deposit "${DEPOSIT_CAP}ugnot" \
   -chainid "$CHAIN" -remote "$REMOTE" -broadcast "$KEY"
-echo "deployed: https://${REMOTE#https://rpc.}" | sed 's/:443//'
+HOST=$(printf '%s' "$REMOTE" | sed -E 's#https://rpc\.##; s#:443##')
+echo "deployed: https://$HOST/${PKGPATH#gno.land/}"
