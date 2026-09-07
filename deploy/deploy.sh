@@ -24,15 +24,25 @@ NAME="$(basename "$PKGPATH")"
 for f in "$SRC"/*.gno; do case "$f" in *_test.gno) ;; *) sed -e "s/^package forms\$/package $NAME/" -e "s|^// Package forms |// Package $NAME |" "$f" > "$STAGE/$(basename "$f")";; esac; done
 printf 'module = "%s"\ngno = "0.9"\n' "$PKGPATH" > "$STAGE/gnomod.toml"
 echo "staged $(ls "$STAGE" | wc -l | tr -d ' ') files for $PKGPATH in $STAGE"
-GW=60000000
-FEE=$("$(dirname "$0")/gasfee.sh" "$GW" "$REMOTE" | sed -E 's/.*-gas-fee ([0-9]+ugnot).*/\1/')
-echo "using -gas-wanted $GW -gas-fee $FEE (from auth/gasprice)"
-echo "--- simulate ---"
+# 1. Simulate with a huge ceiling. -simulate only never broadcasts, so the fee
+#    attached here is never paid; it only has to satisfy the mempool's minimum.
+SIM_GW=300000000
+SIM_FEE=$("$(dirname "$0")/gasfee.sh" "$SIM_GW" "$REMOTE" 1.05 | sed -E 's/.*-gas-fee ([0-9]+ugnot).*/\1/')
+echo "--- simulate (ceiling $SIM_GW, unpaid) ---"
+SIM_OUT=$("$GNOKEY" maketx addpkg -pkgpath "$PKGPATH" -pkgdir "$STAGE" \
+  -gas-fee "$SIM_FEE" -gas-wanted "$SIM_GW" -max-deposit 30000000ugnot \
+  -chainid "$CHAIN" -remote "$REMOTE" -broadcast -simulate only "$KEY" 2>&1 | tee /dev/stderr) || true
+USED=$(printf '%s' "$SIM_OUT" | sed -nE 's/^GAS USED:[[:space:]]+([0-9]+).*/\1/p' | head -1)
+[ -n "$USED" ] || { echo "simulation did not report GAS USED — aborting"; exit 1; }
+printf '%s' "$SIM_OUT" | grep -q "Error" && { echo "simulation reported an error — aborting"; exit 1; }
+
+# 2. Size the real transaction from what the simulation used: +10% gas ceiling,
+#    fee = ceiling x live price x 1.15. -gas-fee is paid in full, so headroom is
+#    deliberately small; if the price jumps between the two steps, just rerun.
+GW=$(( USED + USED / 10 ))
+FEE=$("$(dirname "$0")/gasfee.sh" "$GW" "$REMOTE" 1.15 | sed -E 's/.*-gas-fee ([0-9]+ugnot).*/\1/')
+echo "--- broadcast: gas used $USED -> -gas-wanted $GW -gas-fee $FEE ---"
 "$GNOKEY" maketx addpkg -pkgpath "$PKGPATH" -pkgdir "$STAGE" \
-  -gas-fee "$FEE" -gas-wanted "$GW" -max-deposit 20000000ugnot \
-  -chainid "$CHAIN" -remote "$REMOTE" -broadcast -simulate only "$KEY"
-echo "--- broadcast ---"
-"$GNOKEY" maketx addpkg -pkgpath "$PKGPATH" -pkgdir "$STAGE" \
-  -gas-fee "$FEE" -gas-wanted "$GW" -max-deposit 20000000ugnot \
+  -gas-fee "$FEE" -gas-wanted "$GW" -max-deposit 30000000ugnot \
   -chainid "$CHAIN" -remote "$REMOTE" -broadcast "$KEY"
 echo "deployed: https://${REMOTE#https://rpc.}" | sed 's/:443//'
