@@ -16,7 +16,7 @@ exactly one thing. This realm is the general product on top of it.
 Create a form (from gnokey or the "Create a form" link on the index page):
 
 ```sh
-gnokey maketx call -pkgpath gno.land/r/encapsulate/forms -func Create \
+gnokey maketx call -pkgpath gno.land/r/nym-encapsulate001/forms -func Create \
   -args "Valoper questionnaire" \
   -args "The six questions the registry asks." \
   -args "Validator name|Networks and AuM|Digital presence|Contact|Why gno.land?|Contributions" \
@@ -28,7 +28,7 @@ gnokey maketx call -pkgpath gno.land/r/encapsulate/forms -func Create \
   -remote https://rpc.pearl.testnets.gno.land:443 <key>
 ```
 
-Then open `/r/encapsulate/forms:<id>` in gnoweb. The form is fillable there;
+Then open `/r/nym-encapsulate001/forms:<id>` in gnoweb. The form is fillable there;
 submitting signs a transaction with your wallet. Responses render at
 `…/responses` and as CSV at `…/responses.csv`.
 
@@ -39,15 +39,25 @@ address to one response; the eighth is an optional closing chain height.
 ## Deploy
 
 ```sh
-# throwaway on Pearl first — no namespace registration needed there
-deploy/deploy.sh <key> gno.land/r/encapsulate/test
+# register a namespace once (free). Self-service names must match nym-[a-z]{5,13}\d{3};
+# short names like "encapsulate" go through a GovDAO "Register User" proposal.
+gnokey maketx call -pkgpath gno.land/r/sys/namereg/v1 -func Register -args nym-encapsulate001 \
+  -gas-fee 1000000ugnot -gas-wanted 45000000 -chainid pearl-1 \
+  -remote https://rpc.pearl.testnets.gno.land:443 -broadcast <key>
+
+# throwaway first
+deploy/deploy.sh <key> gno.land/r/nym-encapsulate001/test
 
 # the real path, once the browser flow has been tested
-deploy/deploy.sh <key> gno.land/r/encapsulate/forms
+deploy/deploy.sh <key> gno.land/r/nym-encapsulate001/forms
 ```
 
-The script stages the realm source (no tests) under the given path, runs a
+Live on Pearl: https://pearl.testnets.gno.land/r/nym-encapsulate001/test
+
+The script stages the realm source (no tests) under the given path and rewrites
+the package clause to match the last path element (the VM requires it), runs a
 `-simulate only` pass to size gas and the storage deposit, then broadcasts.
+Deploying this realm costs ~55M gas and a ~6.8 GNOT storage deposit on Pearl.
 Deployed realms are immutable — a fix is a new path (`forms/v2`), which is why
 the throwaway comes first.
 
