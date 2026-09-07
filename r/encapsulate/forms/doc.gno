@@ -10,6 +10,12 @@
 // fills the form in a browser, signs with their wallet, and the answers land
 // in realm state. No frontend, no backend, no indexer.
 //
+// # Slugs
+//
+// A form's ID is a slug chosen at creation — lowercase letters, digits and
+// single hyphens, 3 to 48 characters, unique per realm. It is the URL
+// segment: /r/<ns>/forms:valoper-questionnaire. Response IDs are sequential.
+//
 // # Field encoding
 //
 // Create takes four parallel, pipe-separated strings so it stays usable from

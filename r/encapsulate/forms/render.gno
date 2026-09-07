@@ -61,7 +61,7 @@ func renderIndex(res *mux.ResponseWriter, req *mux.Request) {
 	for _, item := range page.Items {
 		f := item.Value.(*Form)
 		table.Append([]string{
-			md.Link(f.Title, formURL(f.ID.String())),
+			md.Link(f.Title, formURL(f.ID)),
 			statusLabel(f, height),
 			strconv.Itoa(f.ResponseCount()),
 			strconv.Itoa(len(f.Fields)),
@@ -86,7 +86,7 @@ func renderForm(res *mux.ResponseWriter, req *mux.Request) {
 	}
 
 	height := runtime.ChainHeight()
-	id := f.ID.String()
+	id := f.ID
 
 	var b strings.Builder
 
@@ -132,7 +132,7 @@ func renderMDForm(f *Form) string {
 	form := mdform.New("exec", "Submit")
 
 	form.Input("id",
-		"value", f.ID.String(),
+		"value", f.ID,
 		"readonly", "true",
 		"description", "Form ID",
 	)
@@ -191,8 +191,8 @@ func renderResponses(res *mux.ResponseWriter, req *mux.Request) {
 
 	b.WriteString(md.H1(f.Title + " — responses"))
 	b.WriteString(ufmt.Sprintf("%d response(s). ", f.ResponseCount()))
-	b.WriteString(md.Link("Back to form", formURL(f.ID.String())) + " · " +
-		md.Link("CSV", csvURL(f.ID.String())) + "\n\n")
+	b.WriteString(md.Link("Back to form", formURL(f.ID)) + " · " +
+		md.Link("CSV", csvURL(f.ID)) + "\n\n")
 
 	if f.ResponseCount() == 0 {
 		b.WriteString("_No responses yet._\n")
@@ -254,7 +254,7 @@ func renderCSV(res *mux.ResponseWriter, req *mux.Request) {
 
 func renderCreateHelp() string {
 	return md.H3("Create a form") +
-		"Call " + md.InlineCode("Create") + " with a title, a description, and four pipe-separated " +
+		"Call " + md.InlineCode("Create") + " with a slug (its URL name), a title, a description, and four pipe-separated " +
 		"field specs — labels, kinds (" + md.InlineCode("text|textarea|number|select") + "), " +
 		"required flags (" + md.InlineCode("1|0") + ") and select options (comma-separated). " +
 		"Up to " + strconv.Itoa(MaxFields) + " fields.\n\n" +

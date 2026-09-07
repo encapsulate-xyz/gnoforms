@@ -4,6 +4,8 @@ import "errors"
 
 var (
 	ErrFormNotFound     = errors.New("form not found")
+	ErrBadSlug          = errors.New("slug must be 3-48 lowercase letters, digits and single hyphens, e.g. valoper-questionnaire")
+	ErrSlugTaken        = errors.New("a form with this slug already exists")
 	ErrFormClosed       = errors.New("form is closed")
 	ErrFormOpen         = errors.New("form is already open")
 	ErrNotOwner         = errors.New("caller is not the form owner")

@@ -3,6 +3,7 @@ package forms
 import (
 	"chain"
 	"chain/runtime"
+	"regexp"
 	"strings"
 
 	"gno.land/p/nt/avl/v0"
@@ -12,12 +13,14 @@ import (
 )
 
 var (
-	forms      = avl.NewTree() // form id -> *Form
-	nextFormID seqid.ID
+	forms      = avl.NewTree() // slug -> *Form
 	nextRespID seqid.ID
+
+	slugRe = regexp.MustCompile(`^[a-z0-9]+(-[a-z0-9]+)*$`)
 )
 
-// Create publishes a new form and returns its ID.
+// Create publishes a new form under slug, which becomes its ID and its URL
+// segment (/r/<ns>/forms:<slug>). Slugs are unique per realm.
 //
 // Fields are described by four parallel, pipe-separated strings so the call
 // stays usable from gnokey and gnoweb without structured arguments:
@@ -29,8 +32,16 @@ var (
 //
 // deadline is a chain height after which the form stops accepting responses,
 // or 0 for none. onePerAddr limits each address to a single response.
-func Create(cur realm, title, description, labels, kinds, required, options string, onePerAddr bool, deadline int64) string {
+func Create(cur realm, slug, title, description, labels, kinds, required, options string, onePerAddr bool, deadline int64) string {
 	caller := mustUserCaller(cur)
+
+	slug = strings.TrimSpace(slug)
+	if len(slug) < MinSlugLen || len(slug) > MaxSlugLen || !slugRe.MatchString(slug) {
+		panic(ErrBadSlug)
+	}
+	if forms.Has(slug) {
+		panic(ErrSlugTaken)
+	}
 
 	title = strings.TrimSpace(title)
 	description = strings.TrimSpace(description)
@@ -52,9 +63,8 @@ func Create(cur realm, title, description, labels, kinds, required, options stri
 
 	fields := parseFields(labels, kinds, required, options)
 
-	id := nextFormID.Next()
 	f := &Form{
-		ID:          id,
+		ID:          slug,
 		Title:       title,
 		Description: description,
 		Fields:      fields,
@@ -66,11 +76,11 @@ func Create(cur realm, title, description, labels, kinds, required, options stri
 		byAddr:      avl.NewTree(),
 	}
 
-	forms.Set(id.String(), f)
+	forms.Set(slug, f)
 
-	chain.Emit("FormCreated", "id", id.String(), "owner", caller.String(), "title", title)
+	chain.Emit("FormCreated", "id", slug, "owner", caller.String(), "title", title)
 
-	return id.String()
+	return slug
 }
 
 // Close stops a form from accepting responses. Owner only.

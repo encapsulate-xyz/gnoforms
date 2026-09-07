@@ -52,9 +52,16 @@ func (f Field) MaxLen() int {
 	}
 }
 
+// Slug rules. A slug is the form's ID and its URL segment, chosen at creation:
+// lowercase letters and digits, single hyphens between words, 3–48 characters.
+const (
+	MinSlugLen = 3
+	MaxSlugLen = 48
+)
+
 // Form is a published questionnaire and its responses.
 type Form struct {
-	ID          seqid.ID
+	ID          string // the slug
 	Title       string
 	Description string
 	Fields      []Field
@@ -90,7 +97,7 @@ func (f *Form) IsOpen(height int64) bool {
 // Response is one submission to a form. Answers align with Form.Fields.
 type Response struct {
 	ID      seqid.ID
-	Form    seqid.ID
+	Form    string // the form slug
 	Author  address
 	Height  int64
 	Answers []string

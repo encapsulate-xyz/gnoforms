@@ -20,6 +20,7 @@ func main(cur realm) {
 	testing.SetHeight(500)
 	testing.SetRealm(testing.NewUserRealm(owner))
 	id := forms.Create(cross(cur),
+		"valoper-questionnaire",
 		"Valoper questionnaire",
 		"The six questions r/gnops/valopers asks, as fields.",
 		"Validator name|Networks and AuM|Digital presence|Contact|Why gno.land?|Contributions",
@@ -51,11 +52,11 @@ func main(cur realm) {
 //
 // **Status:** open · **Responses:** 0 · **Owner:** `g1jg8mtutu9khhfwc4nxmuhcpftf0pajdhfvsqf5` · one response per address
 //
-// [View responses](/r/encapsulate/forms:0000001/responses) · [CSV](/r/encapsulate/forms:0000001/responses.csv)
+// [View responses](/r/encapsulate/forms:valoper-questionnaire/responses) · [CSV](/r/encapsulate/forms:valoper-questionnaire/responses.csv)
 //
 // ## Respond
 // <gno-form exec="Submit">
-// <gno-input name="id" value="0000001" readonly="true" description="Form ID" />
+// <gno-input name="id" value="valoper-questionnaire" readonly="true" description="Form ID" />
 // <gno-input name="a1" placeholder="Validator name *" description="Validator name *" required="true" />
 // <gno-textarea name="a2" placeholder="Networks and AuM *" rows="4" required="true" />
 // <gno-input name="a3" placeholder="Digital presence" description="Digital presence" />
@@ -65,11 +66,11 @@ func main(cur realm) {
 // </gno-form>
 //
 // ### Owner actions
-// [Close]($help&func=Close&id=0000001) · [Withdraw my response]($help&func=Withdraw&id=0000001)
+// [Close]($help&func=Close&id=valoper-questionnaire) · [Withdraw my response]($help&func=Withdraw&id=valoper-questionnaire)
 //
 // --- responses ---
 // # Valoper questionnaire — responses
-// 1 response(s). [Back to form](/r/encapsulate/forms:0000001) · [CSV](/r/encapsulate/forms:0000001/responses.csv)
+// 1 response(s). [Back to form](/r/encapsulate/forms:valoper-questionnaire) · [CSV](/r/encapsulate/forms:valoper-questionnaire/responses.csv)
 //
 // | # | From | Height | Validator name | Networks and AuM | Digital presence | Contact | Why gno.land? | Contributions |
 // | --- | --- | --- | --- | --- | --- | --- | --- | --- |

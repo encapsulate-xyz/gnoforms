@@ -17,6 +17,7 @@ Create a form (from gnokey or the "Create a form" link on the index page):
 
 ```sh
 gnokey maketx call -pkgpath gno.land/r/nym-encapsulate001/forms -func Create \
+  -args "valoper-questionnaire" \
   -args "Valoper questionnaire" \
   -args "The six questions the registry asks." \
   -args "Validator name|Networks and AuM|Digital presence|Contact|Why gno.land?|Contributions" \
@@ -28,13 +29,16 @@ gnokey maketx call -pkgpath gno.land/r/nym-encapsulate001/forms -func Create \
   -remote https://rpc.pearl.testnets.gno.land:443 <key>
 ```
 
-Then open `/r/nym-encapsulate001/forms:<id>` in gnoweb. The form is fillable there;
+The first argument is the form's slug — its ID and its URL segment: lowercase
+letters, digits, single hyphens, 3–48 characters, unique per realm.
+
+Then open `/r/nym-encapsulate001/forms:valoper-questionnaire` in gnoweb. The form is fillable there;
 submitting signs a transaction with your wallet. Responses render at
 `…/responses` and as CSV at `…/responses.csv`.
 
 Field kinds: `text`, `textarea`, `number`, `select` (options comma-separated in
-the fourth argument). Up to 8 fields. `true` as the seventh argument limits each
-address to one response; the eighth is an optional closing chain height.
+the fourth argument). Up to 8 fields. `true` as the eighth argument limits each
+address to one response; the ninth is an optional closing chain height.
 
 ## Deploy
 

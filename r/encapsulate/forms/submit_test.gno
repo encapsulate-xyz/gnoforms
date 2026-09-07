@@ -70,7 +70,7 @@ func TestSubmitRejectsAndWritesNothing(cur realm, t *testing.T) {
 
 func TestSubmitValidatesNumbers(cur realm, t *testing.T) {
 	testing.SetRealm(testing.NewUserRealm(alice))
-	id := Create(cross(cur), "Numbers", "", "Age", "number", "1", "", false, 0)
+	id := Create(cross(cur), uniqueSlug("numbers"), "Numbers", "", "Age", "number", "1", "", false, 0)
 
 	testing.SetRealm(testing.NewUserRealm(bob))
 	uassert.AbortsContains(t, cur, ErrNotANumber.Error(), func(cur realm) {
@@ -85,7 +85,7 @@ func TestSubmitValidatesNumbers(cur realm, t *testing.T) {
 
 func TestOnePerAddress(cur realm, t *testing.T) {
 	testing.SetRealm(testing.NewUserRealm(alice))
-	id := Create(cross(cur), "One each", "", "A", "text", "0", "", true, 0)
+	id := Create(cross(cur), uniqueSlug("one-each"), "One each", "", "A", "text", "0", "", true, 0)
 
 	testing.SetRealm(testing.NewUserRealm(bob))
 	Submit(cross(cur), id, "first", "", "", "", "", "", "", "")
@@ -103,7 +103,7 @@ func TestOnePerAddress(cur realm, t *testing.T) {
 
 func TestWithdraw(cur realm, t *testing.T) {
 	testing.SetRealm(testing.NewUserRealm(alice))
-	id := Create(cross(cur), "Withdrawable", "", "A", "text", "0", "", true, 0)
+	id := Create(cross(cur), uniqueSlug("withdrawable"), "Withdrawable", "", "A", "text", "0", "", true, 0)
 
 	testing.SetRealm(testing.NewUserRealm(bob))
 	uassert.AbortsContains(t, cur, ErrNoResponse.Error(), func(cur realm) {

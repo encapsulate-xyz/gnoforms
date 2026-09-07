@@ -55,7 +55,7 @@ func TestRenderClosedFormHidesTheForm(cur realm, t *testing.T) {
 
 func TestCSVEscapesQuotes(cur realm, t *testing.T) {
 	testing.SetRealm(testing.NewUserRealm(alice))
-	id := Create(cross(cur), "Quotes", "", "Say", "text", "0", "", false, 0)
+	id := Create(cross(cur), uniqueSlug("quotes"), "Quotes", "", "Say", "text", "0", "", false, 0)
 
 	testing.SetRealm(testing.NewUserRealm(bob))
 	Submit(cross(cur), id, `he said "hi", then left`, "", "", "", "", "", "", "")
