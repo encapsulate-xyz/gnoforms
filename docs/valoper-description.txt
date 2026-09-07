@@ -1,26 +1,26 @@
-Encapsulate is a professional validator operator running 40 networks.
+**Validator:** Encapsulate — validator operator since 2020, running 40 networks with $69,607,330 in delegated stake.
 
-Networks validated / operated: Avalanche, Lido, Monad, NEAR, Sui, Axelar, EigenLayer, IOTA, Mina, Starknet, Terra, Zilliqa, Avail, Espresso Systems, Ika, SSV.network, Supra, Vara, Agoric, Althea, Gitopia, Gravity Bridge, humans.ai, ixo, Lumera, Passage, Sommelier, Chain4Energy and others.
+**Networks we validate:** Ethereum, Sui, Monad, NEAR, Avalanche, EigenLayer, Axelar, Zilliqa, Mina, Starknet, IOTA, Terra, Supra, Avail and 25+ others — [full list](https://encapsulate.xyz)
 
-AuM: $69,607,330
+**Digital presence**
+* Website: https://encapsulate.xyz
+* X: https://x.com/encapHQ
+* GitHub: https://github.com/encapsulate-xyz
+* LinkedIn: https://www.linkedin.com/company/encapsulate-xyz
+* Discord: `aditya_encapsulate`, `kowshikvajrala`
 
-Website: https://encapsulate.xyz
-GitHub: https://github.com/encapsulate-xyz
-X: https://x.com/encapHQ
-LinkedIn: https://www.linkedin.com/company/encapsulate-xyz
-Discord handles: aditya_encapsulate, kowshikvajrala
-Contact: team@encapsulate.xyz, Telegram @aditya_encapsulate
+**Contact:** team@encapsulate.xyz · Telegram `aditya_encapsulate`
 
-Why we want to validate on gno.land: Proof of Contribution is the only validator selection model we have seen where the way in is building rather than bidding, and equal voting power means the set is judged on merit rather than stake. We also want to write Gno — it is the first contract language where our Go experience transfers directly, and realms publishing readable source is the property we most want in infrastructure we depend on.
+**Why we want to validate on gno.land**
 
-Contributions to gno.land:
+Proof of Contribution rewards building rather than bidding, and equal voting power means the set is judged on merit rather than stake. Gno plays to our strengths: years of Go and Cosmos-SDK operations transfer directly, and readable on-chain source is what we most want in infrastructure we depend on.
 
-- gno forms, a realm that publishes forms and collects responses on chain with gnoweb as the only UI, so collecting structured input no longer needs a Web2 backend. Live at /r/nym-encapsulate001/forms, source at https://github.com/encapsulate-xyz/gnoforms
+**Contributions**
 
-- gnolang/gno#6140 — reported that an unticked checkbox in a gno-form submits its value regardless, making every boolean parameter unconditionally true. Filed with an on-chain reproduction, the served HTML and a verified workaround.
+* **gno forms** — a realm that publishes forms and collects responses on chain, with gnoweb as the only UI, so collecting structured input no longer needs a Web2 backend. Live at [/r/nym-encapsulate001/forms](/r/nym-encapsulate001/forms) · [source](https://github.com/encapsulate-xyz/gnoforms)
+* **[gnolang/gno#6140](https://github.com/gnolang/gno/issues/6140)** — an unticked checkbox in a `gno-form` submits its value regardless, making every boolean parameter unconditionally true. Filed with an on-chain reproduction and a verified workaround.
+* **[gnolang/gno#6141](https://github.com/gnolang/gno/issues/6141)** — `gno-select` has no way to set its visible label.
+* **[gnoland-ansible](https://github.com/encapsulate-xyz/gnoland-ansible)** — deploys, upgrades, snapshot-syncs and monitors gno.land nodes with Vault-secured keys.
+* Validated on previous gno.land testnets.
 
-- gnolang/gno#6141 — gno-select has no way to set its visible label, so users see parameter names where a question should be.
-
-- gnoland-ansible, public deployment automation for gno.land nodes: https://github.com/encapsulate-xyz/gnoland-ansible
-
-Both issues were found by building on the form layer rather than reading the code. We are continuing to work on gno forms and on the gnoweb form layer.
+**Planned:** monitoring and analytics, public endpoints and snapshots, and continued work on gno forms and the gnoweb form layer.
