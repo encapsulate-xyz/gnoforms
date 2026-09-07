@@ -4,6 +4,7 @@ import (
 	"chain"
 	"chain/runtime"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"gno.land/p/nt/avl/v0"
@@ -33,6 +34,79 @@ var (
 // deadline is a chain height after which the form stops accepting responses,
 // or 0 for none. onePerAddr limits each address to a single response.
 func Create(cur realm, slug, title, description, labels, kinds, required, options string, onePerAddr bool, deadline int64) string {
+	return create(cur, slug, title, description, labels, kinds, required, options, onePerAddr, deadline)
+}
+
+// CreateForm is Create for the browser: the index page renders it as a gnoweb
+// form, one row per field, so nothing has to be typed into the wallet.
+//
+// Every parameter is a string because gnoweb submits "" for an empty or
+// unchecked input, and "" is not a bool or an int64 as far as the VM is
+// concerned. Checkboxes send "1" when ticked. Blank rows are skipped; a row
+// with an empty kind is text. deadline "" means none.
+func CreateForm(cur realm,
+	slug, title, description string,
+	l1, k1, r1, o1 string,
+	l2, k2, r2, o2 string,
+	l3, k3, r3, o3 string,
+	l4, k4, r4, o4 string,
+	l5, k5, r5, o5 string,
+	l6, k6, r6, o6 string,
+	l7, k7, r7, o7 string,
+	l8, k8, r8, o8 string,
+	onePerAddr, deadline string,
+) string {
+	rows := [][4]string{
+		{l1, k1, r1, o1}, {l2, k2, r2, o2}, {l3, k3, r3, o3}, {l4, k4, r4, o4},
+		{l5, k5, r5, o5}, {l6, k6, r6, o6}, {l7, k7, r7, o7}, {l8, k8, r8, o8},
+	}
+
+	var labels, kinds, required, options []string
+	for _, row := range rows {
+		label := strings.TrimSpace(row[0])
+		if label == "" {
+			continue
+		}
+		if strings.Contains(label, "|") || strings.Contains(row[3], "|") {
+			panic(ErrPipeInField)
+		}
+
+		kind := strings.TrimSpace(row[1])
+		if kind == "" {
+			kind = string(KindText)
+		}
+
+		labels = append(labels, label)
+		kinds = append(kinds, kind)
+		required = append(required, boolFlag(row[2]))
+		options = append(options, strings.TrimSpace(row[3]))
+	}
+
+	var dl int64
+	if d := strings.TrimSpace(deadline); d != "" {
+		n, err := strconv.Atoi(d)
+		if err != nil {
+			panic(ErrBadDeadline)
+		}
+		dl = int64(n)
+	}
+
+	return create(cur, slug, title, description,
+		strings.Join(labels, "|"), strings.Join(kinds, "|"),
+		strings.Join(required, "|"), strings.Join(options, "|"),
+		boolFlag(onePerAddr) == "1", dl)
+}
+
+// boolFlag normalises what a checkbox or a human might send to "1" or "0".
+func boolFlag(s string) string {
+	switch strings.ToLower(strings.TrimSpace(s)) {
+	case "1", "true", "on", "yes":
+		return "1"
+	}
+	return "0"
+}
+
+func create(cur realm, slug, title, description, labels, kinds, required, options string, onePerAddr bool, deadline int64) string {
 	caller := mustUserCaller(cur)
 
 	slug = strings.TrimSpace(slug)

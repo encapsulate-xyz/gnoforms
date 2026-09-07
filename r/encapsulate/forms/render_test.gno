@@ -13,6 +13,8 @@ func TestRenderRoutes(cur realm, t *testing.T) {
 	index := Render("")
 	uassert.True(t, strings.Contains(index, "Valoper questionnaire"), "index lists the form")
 	uassert.True(t, strings.Contains(index, "Create a form"), "index shows create help")
+	uassert.True(t, strings.Contains(index, `exec="CreateForm"`), "index renders the create form")
+	uassert.True(t, strings.Contains(index, `name="slug"`) && strings.Contains(index, `name="l8"`) && strings.Contains(index, `name="onePerAddr"`), "create form maps every CreateForm parameter")
 
 	page := Render(id)
 	uassert.True(t, strings.Contains(page, "# Valoper questionnaire"))

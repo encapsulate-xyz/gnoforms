@@ -15,6 +15,7 @@ var (
 	ErrBadFieldKind     = errors.New("field kind must be one of text, textarea, number, select")
 	ErrSelectNoOptions  = errors.New("a select field needs at least one option")
 	ErrEmptyLabel       = errors.New("field label cannot be empty")
+	ErrPipeInField      = errors.New("field labels and options cannot contain |")
 	ErrEmptyTitle       = errors.New("form title cannot be empty")
 	ErrTitleTooLong     = errors.New("form title is too long")
 	ErrDescriptionTooLong = errors.New("form description is too long")

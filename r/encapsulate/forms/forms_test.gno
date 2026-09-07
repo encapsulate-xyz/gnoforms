@@ -198,3 +198,61 @@ func TestUnknownForm(cur realm, t *testing.T) {
 		Close(cross(cur), "nope")
 	})
 }
+
+func TestCreateFormAssemblesRowsAndSkipsBlanks(cur realm, t *testing.T) {
+	testing.SetRealm(testing.NewUserRealm(alice))
+	slug := uniqueSlug("browser")
+
+	id := CreateForm(cross(cur), slug, "  Browser form  ", "",
+		"Name", "", "1", "", // kind blank -> text, required ticked
+		"", "textarea", "1", "", // blank label -> skipped entirely
+		"Server type", "select", "", "cloud, on-prem ,data-center",
+		"Notes", "textarea", "", "",
+		"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+		"1", "")
+
+	uassert.Equal(t, slug, id)
+	f, ok := GetForm(id)
+	uassert.True(t, ok)
+	uassert.Equal(t, "Browser form", f.Title)
+	uassert.Equal(t, 3, len(f.Fields), "blank row skipped")
+	uassert.Equal(t, "Name", f.Fields[0].Label)
+	uassert.Equal(t, string(KindText), string(f.Fields[0].Kind))
+	uassert.True(t, f.Fields[0].Required)
+	uassert.Equal(t, string(KindSelect), string(f.Fields[1].Kind))
+	uassert.Equal(t, 3, len(f.Fields[1].Options))
+	uassert.Equal(t, "on-prem", f.Fields[1].Options[1], "options trimmed")
+	uassert.False(t, f.Fields[1].Required, "unticked checkbox sends empty")
+	uassert.True(t, f.OnePerAddr)
+	uassert.Equal(t, int64(0), f.Deadline, "empty deadline means none")
+}
+
+func TestCreateFormRejects(cur realm, t *testing.T) {
+	testing.SetRealm(testing.NewUserRealm(alice))
+	blank := [28]string{}
+
+	uassert.AbortsContains(t, cur, ErrPipeInField.Error(), func(cur realm) {
+		testing.SetRealm(testing.NewUserRealm(alice))
+		CreateForm(cross(cur), uniqueSlug("pipe"), "T", "", "a|b", "", "", "",
+			blank[0], blank[1], blank[2], blank[3], blank[4], blank[5], blank[6], blank[7],
+			blank[8], blank[9], blank[10], blank[11], blank[12], blank[13], blank[14], blank[15],
+			blank[16], blank[17], blank[18], blank[19], blank[20], blank[21], blank[22], blank[23],
+			blank[24], blank[25], blank[26], blank[27], "", "")
+	})
+	uassert.AbortsContains(t, cur, ErrBadDeadline.Error(), func(cur realm) {
+		testing.SetRealm(testing.NewUserRealm(alice))
+		CreateForm(cross(cur), uniqueSlug("dl"), "T", "", "A", "", "", "",
+			blank[0], blank[1], blank[2], blank[3], blank[4], blank[5], blank[6], blank[7],
+			blank[8], blank[9], blank[10], blank[11], blank[12], blank[13], blank[14], blank[15],
+			blank[16], blank[17], blank[18], blank[19], blank[20], blank[21], blank[22], blank[23],
+			blank[24], blank[25], blank[26], blank[27], "", "soon")
+	})
+	uassert.AbortsContains(t, cur, ErrNoFields.Error(), func(cur realm) {
+		testing.SetRealm(testing.NewUserRealm(alice))
+		CreateForm(cross(cur), uniqueSlug("empty"), "T", "", "", "", "", "",
+			blank[0], blank[1], blank[2], blank[3], blank[4], blank[5], blank[6], blank[7],
+			blank[8], blank[9], blank[10], blank[11], blank[12], blank[13], blank[14], blank[15],
+			blank[16], blank[17], blank[18], blank[19], blank[20], blank[21], blank[22], blank[23],
+			blank[24], blank[25], blank[26], blank[27], "", "")
+	})
+}

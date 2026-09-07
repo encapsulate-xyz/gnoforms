@@ -252,13 +252,55 @@ func renderCSV(res *mux.ResponseWriter, req *mux.Request) {
 	res.Write(md.LanguageCodeBlock("csv", b.String()))
 }
 
+// renderCreateHelp draws the form that creates forms. gnoweb submits it as a
+// CreateForm call with every input mapped to the parameter of the same name.
 func renderCreateHelp() string {
-	return md.H3("Create a form") +
-		"Call " + md.InlineCode("Create") + " with a slug (its URL name), a title, a description, and four pipe-separated " +
-		"field specs — labels, kinds (" + md.InlineCode("text|textarea|number|select") + "), " +
-		"required flags (" + md.InlineCode("1|0") + ") and select options (comma-separated). " +
-		"Up to " + strconv.Itoa(MaxFields) + " fields.\n\n" +
-		md.Link("Create a form", txlink.Call("Create")) + "\n"
+	form := mdform.New("exec", "CreateForm")
+
+	form.Input("slug",
+		"placeholder", "valoper-questionnaire",
+		"description", "URL name — lowercase letters, digits, hyphens",
+		"required", "true",
+	)
+	form.Input("title",
+		"placeholder", "Valoper questionnaire",
+		"description", "Title",
+		"required", "true",
+	)
+	form.Textarea("description",
+		"placeholder", "What this form is for (optional)",
+		"rows", "3",
+	)
+
+	for i := 1; i <= MaxFields; i++ {
+		n := strconv.Itoa(i)
+		form.Input("l"+n,
+			"placeholder", "Field "+n+" label (leave blank to skip)",
+			"description", "Field "+n,
+		)
+		form.Select("k"+n, string(KindText), "description", "Field "+n+" type", "selected", "true")
+		form.Select("k"+n, string(KindTextarea))
+		form.Select("k"+n, string(KindNumber))
+		form.Select("k"+n, string(KindSelect))
+		form.Checkbox("r"+n, "1", "description", "Field "+n+" required")
+		form.Input("o"+n,
+			"placeholder", "Options, comma-separated (select fields only)",
+			"description", "Field "+n+" options",
+		)
+	}
+
+	form.Checkbox("onePerAddr", "1", "description", "One response per address")
+	form.Input("deadline",
+		"type", "number",
+		"placeholder", "0",
+		"description", "Close at chain height (0 = never)",
+	)
+
+	return md.H2("Create a form") +
+		"Up to " + strconv.Itoa(MaxFields) + " fields. Blank rows are skipped. " +
+		"Submitting opens your wallet with the call already filled in.\n\n" +
+		form.String() + "\n" +
+		"From a terminal, " + md.InlineCode("Create") + " takes the same thing as pipe-separated field specs — see the realm source.\n"
 }
 
 // --- helpers ---
