@@ -15,13 +15,13 @@ Validator public key
     Type: /tm.PubKeyEd25519 (the only type gnoland1 accepts)
 
 Withdrawal / reward wallet address
-    <FILL — g1... from `gnokey add encapsulate-treasury`>
+    g1tkl6ekcls84cadq44mjsclgc9kkp6e2u7pg5dw
     Note: gno.land has no reward distribution implemented yet (r/sys/rewards is a
     stub) and token transfers are locked on mainnet by GovDAO proposal #2. This
     address is provided for when fee sharing is enabled.
 
 Staking / bonding wallet address
-    <FILL — g1... from `gnokey add encapsulate-mainnet`>
+    g1p8uxq4ska2psv2k8wknljh568k5qfnwtene2qp
     Validator operator address. gno.land uses Proof of Contribution: this address
     identifies the validator and is named in the GovDAO admission proposal, but
     holds no bonded stake. There is no self-delegation, delegation or commission.
@@ -30,9 +30,11 @@ Wallet owner
     <FILL — registered legal entity name>
 
 Custodian or wallet provider
-    Self-custodied. Account keys are held in our HashiCorp Vault cluster (4-of-7
-    unseal threshold, sealed by default). The consensus key is never held on the
-    validator host: it is split across Horcrux threshold signers.
+    Self-custodied. The operator and reward wallets are Ledger hardware wallets
+    (BIP44 path m/44'/118'/0'/0/x, the derivation gno.land requires). Operational
+    secrets are held in our HashiCorp Vault cluster (4-of-7 unseal threshold,
+    sealed by default). The consensus key is never held on the validator host:
+    it is split across Horcrux threshold signers.
 
 Node hosting location (country)
     India (Bangalore, Karnataka)
