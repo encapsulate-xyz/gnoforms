@@ -7,11 +7,12 @@ Network / chain name
 
 Validator node ID / moniker
     Moniker: Encapsulate
-    Node ID: <FILL — `gnoland secrets get node_id` on the mainnet host, field "id">
+    Node ID: g10tetu9pwmct5ny48n950gn24q84z7thma45850
 
 Validator public key
-    <FILL — `gnoland secrets get validator_key` on the mainnet host, field "pub_key">
-    Format: gpub1... (ed25519; /tm.PubKeyEd25519 is the only type the chain accepts)
+    gpub1pggj7ard9eg82cjtv4u52epjx56nzwgjyg9zpx4pan4zkfxx84uuf0h6jr4cvxvmfad37mnhvl3l5hz8acwtxfn6e57tkl
+    Consensus address: g1thvy9eke8vw5tdu3t57pdfl6awrltneyqzmnr5
+    Type: /tm.PubKeyEd25519 (the only type gnoland1 accepts)
 
 Withdrawal / reward wallet address
     <FILL — g1... from `gnokey add encapsulate-treasury`>
@@ -47,9 +48,9 @@ Relevant service provider agreements
 
 NOTES
 -----
-* The validator public key and node ID must come from the MAINNET node, not the
-  pearl-1 node. The Pearl consensus key (gpub1pggj7ard...pktl8qre) is bound to
-  pearl-1 and already registered there.
+* The validator public key and node ID above are freshly generated for mainnet and
+  are distinct from the pearl-1 keys. The Pearl consensus key
+  (gpub1pggj7ard...pktl8qre) stays bound to pearl-1.
 * Keys may be generated on a secure machine and moved; priv_validator_state.json
   must travel with the key and exist on exactly one host at a time.
 * The Pearl operator address is g1eyr3hfdcup4rr5xlcd63vc5t64a03u9kecx2v0. A fresh
