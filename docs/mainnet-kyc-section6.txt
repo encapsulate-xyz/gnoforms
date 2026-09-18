@@ -1,0 +1,57 @@
+SECTION 6 — VALIDATOR / TECHNICAL DETAILS
+gno.land mainnet validator application — Encapsulate
+=====================================================
+
+Network / chain name
+    gnoland1  (gno.land beta mainnet)
+
+Validator node ID / moniker
+    Moniker: Encapsulate
+    Node ID: <FILL — `gnoland secrets get node_id` on the mainnet host, field "id">
+
+Validator public key
+    <FILL — `gnoland secrets get validator_key` on the mainnet host, field "pub_key">
+    Format: gpub1... (ed25519; /tm.PubKeyEd25519 is the only type the chain accepts)
+
+Withdrawal / reward wallet address
+    <FILL — g1... from `gnokey add encapsulate-treasury`>
+    Note: gno.land has no reward distribution implemented yet (r/sys/rewards is a
+    stub) and token transfers are locked on mainnet by GovDAO proposal #2. This
+    address is provided for when fee sharing is enabled.
+
+Staking / bonding wallet address
+    <FILL — g1... from `gnokey add encapsulate-mainnet`>
+    Validator operator address. gno.land uses Proof of Contribution: this address
+    identifies the validator and is named in the GovDAO admission proposal, but
+    holds no bonded stake. There is no self-delegation, delegation or commission.
+
+Wallet owner
+    <FILL — registered legal entity name>
+
+Custodian or wallet provider
+    Self-custodied. Account keys are held in our HashiCorp Vault cluster (4-of-7
+    unseal threshold, sealed by default). The consensus key is never held on the
+    validator host: it is split across Horcrux threshold signers.
+
+Node hosting location (country)
+    India (Bangalore, Karnataka)
+
+Hosting provider / data centre / cloud provider
+    DigitalOcean — physical (bare metal) machines under a custom hardware
+    arrangement, not cloud VPS. AWS used alongside for provider diversification.
+
+Relevant service provider agreements
+    <FILL — DigitalOcean custom hardware agreement; AWS Customer Agreement.
+    Attach or name contract references as required.>
+
+
+NOTES
+-----
+* The validator public key and node ID must come from the MAINNET node, not the
+  pearl-1 node. The Pearl consensus key (gpub1pggj7ard...pktl8qre) is bound to
+  pearl-1 and already registered there.
+* Keys may be generated on a secure machine and moved; priv_validator_state.json
+  must travel with the key and exist on exactly one host at a time.
+* The Pearl operator address is g1eyr3hfdcup4rr5xlcd63vc5t64a03u9kecx2v0. A fresh
+  mainnet operator key is being generated separately — the operator address cannot
+  be changed after valoper registration.
