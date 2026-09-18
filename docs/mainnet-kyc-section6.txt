@@ -3,7 +3,7 @@ gno.land mainnet validator application — Encapsulate
 =====================================================
 
 Network / chain name
-    gnoland1  (gno.land beta mainnet)
+    gnoland-1  (gno.land mainnet, launched 2026-09-12 15:00 UTC)
 
 Validator node ID / moniker
     Moniker: Encapsulate
@@ -12,13 +12,14 @@ Validator node ID / moniker
 Validator public key
     gpub1pggj7ard9eg82cjtv4u52epjx56nzwgjyg9zpx4pan4zkfxx84uuf0h6jr4cvxvmfad37mnhvl3l5hz8acwtxfn6e57tkl
     Consensus address: g1thvy9eke8vw5tdu3t57pdfl6awrltneyqzmnr5
-    Type: /tm.PubKeyEd25519 (the only type gnoland1 accepts)
+    Type: /tm.PubKeyEd25519 (the only type gnoland-1 accepts)
 
 Withdrawal / reward wallet address
     g1tkl6ekcls84cadq44mjsclgc9kkp6e2u7pg5dw
-    Note: gno.land has no reward distribution implemented yet (r/sys/rewards is a
-    stub) and token transfers are locked on mainnet by GovDAO proposal #2. This
-    address is provided for when fee sharing is enabled.
+    Note: gno.land has no validator reward distribution implemented yet
+    (r/sys/rewards is a stub). Token transfers were locked at genesis under
+    Constitution §126 and unlocked by GovDAO proposal #4. This address is
+    provided for fee sharing when it is enabled.
 
 Staking / bonding wallet address
     g1p8uxq4ska2psv2k8wknljh568k5qfnwtene2qp
