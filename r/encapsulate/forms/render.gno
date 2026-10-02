@@ -6,11 +6,11 @@ import (
 	"strconv"
 	"strings"
 
-	"gno.land/p/jeronimoalbi/mdform"
-	"gno.land/p/moul/md"
-	"gno.land/p/moul/mdtable"
-	"gno.land/p/moul/txlink"
-	"gno.land/p/nt/avl/v0/pager"
+	"gno.land/p/jeronimoalbi/mdform/v0"
+	"gno.land/p/moul/md/v0"
+	"gno.land/p/moul/mdtable/v0"
+	"gno.land/p/moul/txlink/v0"
+	"gno.land/p/nt/avl/pager/v0"
 	"gno.land/p/nt/mux/v0"
 	"gno.land/p/nt/ufmt/v0"
 )

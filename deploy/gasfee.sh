@@ -3,12 +3,12 @@
 #
 #   deploy/gasfee.sh <gas-wanted> [remote] [headroom-multiplier]
 #
-# Pearl prices gas dynamically (auth/gasprice moves block to block; it went
+# Gas is priced dynamically (auth/gasprice moves block to block; it went
 # 17 -> 191 -> 232 ugnot/1000gas within minutes of two heavy deploys), so a
 # fixed fee gets rejected with "insufficient fees". -gas-fee is the total
 # paid, so headroom on the price costs nothing unless the price actually rises.
 set -euo pipefail
-GW="${1:?gas-wanted}"; REMOTE="${2:-https://rpc.pearl.testnets.gno.land:443}"; MULT="${3:-1.7}"
+GW="${1:?gas-wanted}"; REMOTE="${2:-https://rpc.onyx.testnets.gno.land:443}"; MULT="${3:-1.7}"
 RAW=$(/usr/bin/curl -s -m 20 "$REMOTE/abci_query?path=%22auth/gasprice%22&data=0x")
 python3 - "$GW" "$MULT" <<PY
 import sys, json, base64, math

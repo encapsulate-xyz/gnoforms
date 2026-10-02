@@ -2,6 +2,9 @@
 
 Publish a form, collect responses on chain, read them back rendered. gnoweb is the UI.
 
+**Live on onyx-1:** https://onyx.testnets.gno.land/r/g1eyr3hfdcup4rr5xlcd63vc5t64a03u9kecx2v0/forms —
+try it at [`forms:demo`](https://onyx.testnets.gno.land/r/g1eyr3hfdcup4rr5xlcd63vc5t64a03u9kecx2v0/forms:demo).
+
 ## Why
 
 Collecting structured input on gno.land currently means a Web2 backend — the
@@ -16,7 +19,7 @@ exactly one thing. This realm is the general product on top of it.
 Create a form (from gnokey or the "Create a form" link on the index page):
 
 ```sh
-gnokey maketx call -pkgpath gno.land/r/nym-encapsulate001/forms -func Create \
+gnokey maketx call -pkgpath gno.land/r/g1eyr3hfdcup4rr5xlcd63vc5t64a03u9kecx2v0/forms -func Create \
   -args "valoper-questionnaire" \
   -args "Valoper questionnaire" \
   -args "The six questions the registry asks." \
@@ -25,14 +28,14 @@ gnokey maketx call -pkgpath gno.land/r/nym-encapsulate001/forms -func Create \
   -args "1|1|0|1|1|0" \
   -args "" \
   -args true -args 0 \
-  -gas-fee 1000000ugnot -gas-wanted 5000000 -broadcast -chainid pearl-1 \
-  -remote https://rpc.pearl.testnets.gno.land:443 <key>
+  -gas-fee 100000ugnot -gas-wanted 40000000 -max-deposit 5000000ugnot -broadcast \
+  -chainid onyx-1 -remote https://rpc.onyx.testnets.gno.land:443 <key>
 ```
 
 The first argument is the form's slug — its ID and its URL segment: lowercase
 letters, digits, single hyphens, 3–48 characters, unique per realm.
 
-Then open `/r/nym-encapsulate001/forms:valoper-questionnaire` in gnoweb. The form is fillable there;
+Then open `/r/g1eyr3hfdcup4rr5xlcd63vc5t64a03u9kecx2v0/forms:valoper-questionnaire` in gnoweb. The form is fillable there;
 submitting signs a transaction with your wallet. Responses render at
 `…/responses` and as CSV at `…/responses.csv`.
 
@@ -42,28 +45,38 @@ address to one response; the ninth is an optional closing chain height.
 
 ## Deploy
 
+Target: **onyx-1**, the testnet on the mainnet line (gno `v1.5.0`). Build `gnokey` from
+the tag the chain runs (`git checkout v1.5.0`), not from `master`.
+
 ```sh
-# register a namespace once (free). Self-service names must match nym-[a-z]{5,13}\d{3};
-# short names like "encapsulate" go through a GovDAO "Register User" proposal.
-gnokey maketx call -pkgpath gno.land/r/sys/namereg/v1 -func Register -args nym-encapsulate001 \
-  -gas-fee 1000000ugnot -gas-wanted 45000000 -chainid pearl-1 \
-  -remote https://rpc.pearl.testnets.gno.land:443 -broadcast <key>
-
-# throwaway first
-deploy/deploy.sh <key> gno.land/r/nym-encapsulate001/test
-
-# the real path, once the browser flow has been tested
-deploy/deploy.sh <key> gno.land/r/nym-encapsulate001/forms
+deploy/onyx.sh <key>     # prompts for the password once: deploy, wait for approval, smoke test
 ```
 
-Live on Pearl: https://pearl.testnets.gno.land/r/nym-encapsulate001/test
+or step by step:
 
-The script stages the realm source (no tests) under the given path and rewrites
-the package clause to match the last path element (the VM requires it), runs a
-`-simulate only` pass to size gas and the storage deposit, then broadcasts.
-Deploying this realm costs ~55M gas and a ~6.8 GNOT storage deposit on Pearl.
-Deployed realms are immutable — a fix is a new path (`forms/v2`), which is why
-the throwaway comes first.
+```sh
+deploy/deploy.sh <key> gno.land/r/<your-g1-address>/forms   # simulate, then addpkg
+deploy/smoke.sh  <key> gno.land/r/<your-g1-address>/forms   # create/submit/render/withdraw on chain
+```
+
+Two things differ from the old Pearl testnet, both inherited from mainnet:
+
+- **Namespaces are GovDAO-only.** There is no self-service `nym-` registration, so the
+  realm goes under your personal-address namespace, `gno.land/{r,p}/<your g1 address>/…`,
+  which any account may deploy to.
+- **Code submission is `inert`.** An `addpkg` is stored parked and only goes live when
+  the gpao approval oracle sends `MsgEnablePackage` — within seconds, for any package
+  that typechecks against the imports already on chain. `deploy/onyx.sh` waits for it.
+
+`deploy.sh` stages the realm source (no tests) under the given path, rewrites the package
+clause to match the last path element (the VM requires it), runs a `-simulate only` pass to
+size gas and the storage deposit, then broadcasts. Deployed realms are immutable — a fix is
+a new path (`forms/v2`).
+
+The realm imports the versioned library paths that ship from gno `v1.5.0` on
+(`p/jeronimoalbi/mdform/v0`, `p/moul/md/v0`, `p/moul/mdtable/v0`, `p/moul/txlink/v0`,
+`p/nt/avl/pager/v0`). Pearl, where it first ran at `/r/nym-encapsulate001/forms`, has
+been shut down.
 
 ## Creating a form in the browser
 
